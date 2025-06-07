@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grace it's time for bed</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .input-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    #time-input {
+      font-size: 16px;
+      padding: 5px;
+      width: 100px;
+    }
+
+    #enter-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .button-container,
+    .confirmation-buttons {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      gap: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .warning {
+      color: red;
+      font-weight: bold;
+      animation: shake 0.5s;
+    }
+
+    .countdown {
+      font-size: 24px;
+      color: darkred;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .defiant-button {
+      background-color: #ffcccc;
+      border: 2px solid red;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes flash {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="main-content">
+    <h1>Welcome to the website I've designed for you</h1>
+
+    <p>What's the time now? (Enter the hour in the 24 hour format, example 21 for 9PM):</p>
+
+    <div class="input-row">
+      <input type="number" id="time-input" placeholder="e.g., 21" min="0" max="24" />
+      <button id="enter-button" onclick="checkTime()">Enter</button>
+    </div>
+<img src="marangun.gif" alt="Time selection GIF" style="max-width: 100%; height: auto; margin-top: 20px;">
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    let rebelliousCount = 0;
+    let countdownInterval;
+
+    function checkTime() {
+      const time = parseInt(document.getElementById("time-input").value);
+      const mainContent = document.getElementById("main-content");
+
+      if (isNaN(time) || time < 0 || time > 24) {
+        document.getElementById("message").textContent = "Please enter a valid hour between 0 and 24.";
+      } else if (time >= 21) {
+        mainContent.innerHTML = `
+          <h2>It's late! Have you finished your bedtime routine?</h2>
+         <img src="capybara-orange.gif" alt="Time selection GIF" style="max-width: 100%; height: auto; margin-top: 20px;">
+          <div class="confirmation-buttons">
+            <button onclick="askNextQuestion()">Yes</button>
+            <button onclick="confirmNo()">No</button>
+          </div>
+        `;
+      } else {
+        document.getElementById("message").textContent = "Not bedtime yet! You're safe... for now 😈";
+      }
+    }
+
+    function confirmNo() {
+      document.getElementById("main-content").innerHTML = `
+        <h2>Be like this capybara and go wash your face or take a shower and come back if you finish. 🧼🚿</h2>
+        <img src="capybara-cute.gif" alt="Capybara bedtime reminder" style="max-width: 100%; height: auto; margin-top: 20px;">
+        <div class="confirmation-buttons">
+          <button onclick="askNextQuestion()">Yes, I finished</button>
+          <button onclick="remindAgain()">No, I'll do it later</button>
+        </div>
+      `;
+    }
+
+    function remindAgain() {
+      rebelliousCount++;
+
+      if (rebelliousCount >= 3) {
+        defiantChoice();
+      } else {
+        document.getElementById("main-content").innerHTML = `
+          <h2>⏰ Remember! A good sleep starts with a good routine!</h2>
+          <img src="capybara-cute.gif" alt="Capybara bedtime reminder" style="max-width: 100%; height: auto; margin-top: 20px;">
+          <div class="confirmation-buttons">
+            <button onclick="askNextQuestion()">Okay, I'll do it now</button>
+            <button onclick="remindAgain()">I'm rebellious today (${rebelliousCount}/3)</button>
+          </div>
+        `;
+      }
+    }
+
+    function defiantChoice() {
+      let secondsLeft = 5;
+
+      document.getElementById("main-content").innerHTML = `
+        <h2 class="warning" style="animation: flash 0.5s infinite;">YOU LEFT ME WITH NO CHOICE!!!</h2>
+        <div class="countdown">Starting consequences in: ${secondsLeft}</div>
+        <img src="capybara-aaa-capybara-a.gif" alt="Angry Capybara" style="max-width: 100%; height: auto; margin: 20px 0; animation: pulse 0.5s infinite;" />
+      `;
+
+      countdownInterval = setInterval(() => {
+        secondsLeft--;
+        const countdownText = document.querySelector(".countdown");
+        if (countdownText) {
+          countdownText.textContent = `Starting consequences in: ${secondsLeft}`;
+        }
+
+        if (secondsLeft <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById("main-content").innerHTML = `
+            <h2 class="warning">YOUR DEVICE WILL NOW SELF-DESTRUCT</h2>
+            <div class="countdown">Just kidding! But seriously, go to sleep 😠</div>
+            <img src="capybara-cute.gif" alt="Disappointed Capybara" style="max-width: 100%; height: auto; margin-top: 20px;">
+            <div class="confirmation-buttons">
+              <button onclick="askNextQuestion()">Fine, I'm finished</button>
+            </div>
+          `;
+        }
+      }, 1000);
+    }
+
+    function askNextQuestion() {
+      document.getElementById("main-content").innerHTML = `
+        <h2>Next question: Did you finish praying?</h2>
+        <img src="capybara.gif" alt="Prayer reminder" style="max-width: 100%; height: auto; margin-top: 20px;">
+        <div class="confirmation-buttons">
+          <button onclick="confirmPrayer()">Yes ✅</button>
+          <button onclick="remindToPray()">No ❌</button>
+        </div>
+      `;
+    }
+
+function confirmPrayer() {
+  document.getElementById("main-content").innerHTML = `
+    <h2>Very good! Now you can sleep with a clean heart and peaceful mind 💤</h2>
+    <img src="capybara-pixel-art.gif" alt="Peaceful sleep" style="max-width: 100%; height: auto; margin-top: 20px;">
+    <div style="margin-top: 20px;">
+      <button id="important-btn" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+        Click on this, it's something I want you to know
+      </button>
+      <p id="important-message" style="margin-top: 15px; font-style: italic;"></p>
+    </div>
+  `;
+
+  document.getElementById("important-btn").onclick = showImportantMessage;
+}
+
+function showImportantMessage() {
+  const message = "I'm not sure if you remember this but 1 time i was sick at the month march and you told me whatever stress or overthinking i have i should always open up to you and I've been way better ever since you started caring so much about me,Im extremely grateful for all you've done for me and this code doesn't compare even the slightest to the things you done for me.You know because of the amount of things you've done for me i've always tried to repay the kindness back to you,but i've always failed because I'm not as using nor discipline as you and your determination on helping others really inspired me to do good and help others too.You've brought me closer to god and i hope you can continue doing that.I've a confession for you lmao but before meeting you I am the worst you can imagine you can ask loke yew but I've always fat shame people and lied,but after meeting you i was so inspired by your kindness so I tried to do good just to follow behind your footsteps like a baby penguin like what Proverbs 27:17 says : *As iron sharpens iron,so one person sharpens another.* and you've done nothing but that.Whenever i get a sickness no matter how painful it is and my body trying to give up on me but a single sentence from you rose my willpower on not making you worried of me and miraculously I will be fully recovered the next day its all thanks to you and most importantly the lord too.Sorry im getting carried away but i wanted to say if the reason you cant sleep coz of stress from all the acedemic expectations just so you know no matter what happens i will always be here if you need me i will try my best to help even if im not capable of it you've been my tutor for a year I reckon,and it have really helped me understand the math topic even when i couldn't I've never liked math but the time you've spent helping me,made me have a whole new perspective on it and helped in my coding path too.Whenever i try to downgrade myself by calling myself a fool or im stupid you've always ensure me that im not and you've always made me feel special you know.I understand you're stress trying to fulfill everyones expectation i've been there too my parents always said if i dont do good i'd have to quit and if i dont hit state its the same.Its not that im not tired from all my training so i dont sleep its because i know your feeling so i cant afford to see you like this and what i can do is to just keep you company and ensuring you sleep earlier so you wont get sick easily like me now,I've always prayed to see you thrive and hope you dont get sick and i really do hope my prayers been answered i can write a whole book on the thigs you do for me but this is getting a little too long i apologise.BTW The Cabybara Was Coz you Like Them so i picked those gif hahaha forgive me and thanks alot remember whanever you need i will always try to be there. even tho we dont talk much  .";
+  const messageElem = document.getElementById("important-message");
+  messageElem.textContent = message;
+
+  // Clear the page after 3 seconds
+  setTimeout(() => {
+    document.body.innerHTML = "";
+  }, 3000000);
+}
+
+
+    function remindToPray() {
+      document.getElementById("main-content").innerHTML = `
+        <h2>Don't forget to pray before sleep. Try again!</h2>
+        <div class="confirmation-buttons">
+          <button onclick="confirmPrayer()">Okay, I prayed now</button>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
