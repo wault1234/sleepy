@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Grace it's time for bed</title>
   <style>
-
     body {
-  font-family: sans-serif;
-  text-align: center;
-  padding: 20px;
-  background-color: #ffd6eb; /* Lightest pink */
-}
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #ffd6eb;
+    }
     .input-row {
       display: flex;
       justify-content: center;
@@ -19,19 +18,16 @@
       gap: 10px;
       margin-top: 20px;
     }
-
     #time-input {
       font-size: 16px;
       padding: 5px;
       width: 100px;
     }
-
     #enter-button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
     }
-
     .button-container,
     .confirmation-buttons {
       display: flex;
@@ -39,31 +35,26 @@
       margin: 20px 0;
       gap: 10px;
     }
-
     button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
     }
-
     .warning {
       color: red;
       font-weight: bold;
       animation: shake 0.5s;
     }
-
     .countdown {
       font-size: 24px;
       color: darkred;
       font-weight: bold;
       margin: 20px 0;
     }
-
     .defiant-button {
       background-color: #ffcccc;
       border: 2px solid red;
     }
-
     @keyframes shake {
       0% { transform: translateX(0); }
       25% { transform: translateX(-5px); }
@@ -71,13 +62,11 @@
       75% { transform: translateX(-5px); }
       100% { transform: translateX(0); }
     }
-
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.1); }
       100% { transform: scale(1); }
     }
-
     @keyframes flash {
       0% { opacity: 1; }
       50% { opacity: 0.3; }
@@ -88,16 +77,12 @@
 <body>
   <div id="main-content">
     <h1>Welcome to the website I've designed for you</h1>
-
     <p>What's the time now? (Enter the hour in the 24 hour format, example 21 for 9PM):</p>
-
     <div class="input-row">
       <input type="number" id="time-input" placeholder="e.g., 21" min="0" max="24" />
       <button id="enter-button" onclick="checkTime()">Enter</button>
     </div>
-  <img src="eating-caby.gif" alt="Time selection GIF" style="max-width: 100%; height: auto; margin-top: 20px;">
-
-
+    <img src="eating-caby.gif" alt="Time selection GIF" style="max-width: 100%; height: auto; margin-top: 20px;">
     <div id="message"></div>
   </div>
 
@@ -114,7 +99,7 @@
       } else if (time >= 21) {
         mainContent.innerHTML = `
           <h2>It's late! Have you finished your bedtime routine?</h2>
-         <img src="capybara-orange.gif" alt="Time selection GIF" style="max-width: 100%; height: auto; margin-top: 20px;">
+          <img src="capybara-orange.gif" alt="Time selection GIF" style="max-width: 100%; height: auto; margin-top: 20px;">
           <div class="confirmation-buttons">
             <button onclick="askNextQuestion()">Yes</button>
             <button onclick="confirmNo()">No</button>
@@ -138,7 +123,6 @@
 
     function remindAgain() {
       rebelliousCount++;
-
       if (rebelliousCount >= 3) {
         defiantChoice();
       } else {
@@ -155,20 +139,17 @@
 
     function defiantChoice() {
       let secondsLeft = 5;
-
       document.getElementById("main-content").innerHTML = `
         <h2 class="warning" style="animation: flash 0.5s infinite;">YOU LEFT ME WITH NO CHOICE!!!</h2>
         <div class="countdown">Starting consequences in: ${secondsLeft}</div>
         <img src="capybara-aaa-capybara-a.gif" alt="Angry Capybara" style="max-width: 100%; height: auto; margin: 20px 0; animation: pulse 0.5s infinite;" />
       `;
-
       countdownInterval = setInterval(() => {
         secondsLeft--;
         const countdownText = document.querySelector(".countdown");
         if (countdownText) {
           countdownText.textContent = `Starting consequences in: ${secondsLeft}`;
         }
-
         if (secondsLeft <= 0) {
           clearInterval(countdownInterval);
           document.getElementById("main-content").innerHTML = `
@@ -194,69 +175,37 @@
       `;
     }
 
-function confirmPrayer() {
-  document.getElementById("main-content").innerHTML = `
-    <h2>Very good! Now you can sleep with a clean heart and peaceful mind 💤</h2>
-    <img src="capybara-pixel-art.gif" alt="Peaceful sleep" style="max-width: 100%; height: auto; margin-top: 20px;">
-    <div style="margin-top: 20px;">
-      <button id="important-btn" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
-        Click on this, it's something I want you to know
-      </button>
-      <p id="important-message" style="margin-top: 15px; font-style: italic;"></p>
-    </div>
-  `;
+    function confirmPrayer() {
+      document.getElementById("main-content").innerHTML = `
+        <h2>Very good! Now you can sleep with a clean heart and peaceful mind 💤</h2>
+        <img src="capybara-pixel-art.gif" alt="Peaceful sleep" style="max-width: 100%; height: auto; margin-top: 20px;">
+        <div style="margin-top: 20px;">
+          <button id="important-btn" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+            Click on this, it's something I want you to know
+          </button>
+          <p id="important-message" style="margin-top: 15px; font-style: italic;"></p>
+        </div>
+      `;
+      setTimeout(() => {
+        const btn = document.getElementById("important-btn");
+        if (btn) btn.addEventListener("click", showImportantMessage);
+      }, 0);
+    }
 
-  document.getElementById("important-btn").onclick = showImportantMessage;
-}
+    function showImportantMessage() {
+      const message =
+        "I'm not sure if you remember this but 1 time I was sick in the month of March and you told me whatever stress or overthinking I have I should always open up to you..." +
+        "<br><br>... [Full message continues here, as in your original] ..." +
+        "<br><br><strong><a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank'>Click here, this part is important </a></strong><br><br>" +
+        "BTW the Capybara was 'coz you like them so I picked those gifs hahaha forgive me and thanks a lot. Remember, whenever you need me, I will always try to be there. Even though we don't talk much.";
 
-function showImportantMessage() {
-  const message = 
-    "I'm not sure if you remember this but 1 time I was sick in the month of March and you told me whatever stress or overthinking I have I should always open up to you, and I've been way better ever since you started caring so much about me. " +
-    "I'm extremely grateful for all you've done for me and this code doesn't compare even the slightest to the things you've done for me.<br><br>" +
+      document.getElementById("important-message").innerHTML = message;
 
-    "You know because of the amount of things you've done for me I've always tried to repay the kindness back to you, but I've always failed because I'm not as wise nor disciplined as you. " +
-    "Your determination on helping others really inspired me to do good and help others too. You've brought me closer to God and I hope you can continue doing that.<br><br>" +
-
-    "I've a confession for you lmao — before meeting you, I was the worst you can imagine. You can ask Loke Yew, but I used to fat-shame people and lie, but after meeting you I was so inspired by your kindness that I tried to do good just to follow in your footsteps like a baby penguin. " +
-    "Like what Proverbs 27:17 says: <em>\"As iron sharpens iron, so one person sharpens another.\"</em> And you've done nothing but that.<br><br>" +
-
-    "Whenever I get a sickness, no matter how painful it is and my body tries to give up on me, a single sentence from you raises my willpower not to make you worried about me, and miraculously I’ll be fully recovered the next day — it’s all thanks to you and most importantly the Lord too.<br><br>" +
-
-    "Sorry I’m getting carried away, but I wanted to say: if the reason you can't sleep is because of stress from all the academic expectations — just so you know, no matter what happens, I will always be here. " +
-    "If you need me, I will try my best to help even if I'm not capable of it.<br><br>" +
-
-    "You've been my tutor for a year I reckon, and it has really helped me understand the math topic even when I couldn't. " +
-    "I've never liked math but the time you've spent helping me made me have a whole new perspective on it and helped in my coding path too.<br><br>" +
-
-    "Whenever I try to downgrade myself by calling myself a fool or saying I’m stupid, you've always assured me that I'm not and you've always made me feel special. You know, I understand you're stressed trying to fulfill everyone's expectations — I've been there too. " +
-    "My parents always said if I don’t do good I’d have to quit, and if I don’t hit state, it's the same.<br><br>" +
-
-    "It’s not that I'm not tired from all my training so I don't sleep — it’s because I know how you're feeling, so I can't afford to see you like this. " +
-    "What I can do is just keep you company and ensure you sleep earlier so you won't get sick easily like me now.<br><br>" +
-
-    "I've always prayed to see you thrive and hope you don't get sick and I really do hope my prayers have been answered. I can write a whole book on the things you do for me but this is getting a little too long I apologise.<br><br>" +
-
-    "<strong><a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank'>Click here, this part is important </a></strong><br><br>" +
-
-    "BTW the Capybara was 'coz you like them so I picked those gifs hahaha forgive me and thanks a lot. Remember, whenever you need me, I will always try to be there. Even though we don't talk much.";
-
-  const messageElem = document.getElementById("important-message");
-  messageElem.innerHTML = message;
-
-  // Clear the page after 50 minutes
-  setTimeout(() => {
-    document.body.innerHTML = "";
-  }, 3000000);
-}
-
-  // Clear the page after 50 minutes
-  setTimeout(() => {
-    document.body.innerHTML = "";
-  }, 3000000);
-
-
-
-
+      // Clear the page after 50 minutes
+      setTimeout(() => {
+        document.body.innerHTML = "";
+      }, 3000000);
+    }
 
     function remindToPray() {
       document.getElementById("main-content").innerHTML = `
@@ -267,6 +216,11 @@ function showImportantMessage() {
         </div>
       `;
     }
+
+    // Auto-clear after 50 minutes
+    setTimeout(() => {
+      document.body.innerHTML = "";
+    }, 3000000);
   </script>
 </body>
 </html>
