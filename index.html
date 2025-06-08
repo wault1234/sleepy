@@ -236,12 +236,18 @@ function showImportantMessage() {
 
     "I've always prayed to see you thrive and hope you don't get sick and I really do hope my prayers have been answered. I can write a whole book on the things you do for me but this is getting a little too long I apologise.<br><br>" +
 
-    "<strong><a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank'>Click here, this part is important </a></strong><br><br>" +
+    "<strong><a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank'>Click here, this part is important ❤️</a></strong><br><br>" +
 
     "BTW the Capybara was 'coz you like them so I picked those gifs hahaha forgive me and thanks a lot. Remember, whenever you need me, I will always try to be there. Even though we don't talk much.";
 
   const messageElem = document.getElementById("important-message");
   messageElem.innerHTML = message;
+
+  // Clear the page after 50 minutes
+  setTimeout(() => {
+    document.body.innerHTML = "";
+  }, 3000000);
+}
 
   // Clear the page after 50 minutes
   setTimeout(() => {
