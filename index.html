@@ -215,13 +215,14 @@ function showImportantMessage() {
   // Clear the page after 3 seconds
   setTimeout(() => {
     document.body.innerHTML = "";
-  }, 3000000);
+  }, 300000000);
 }
 
 
     function remindToPray() {
       document.getElementById("main-content").innerHTML = `
         <h2>Don't forget to pray before sleep. Try again!</h2>
+        <img src="capybara-washing.gif" alt="washing-washing" style="max-width: 100%; height: auto; margin-top: 20px;">
         <div class="confirmation-buttons">
           <button onclick="confirmPrayer()">Okay, I prayed now</button>
         </div>
